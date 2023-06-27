@@ -19,8 +19,11 @@ The plan:
 9. Once the batchfile finished, it reports `Done.`, you start your Video2X GUI again
 10. Select the folder with missing ones as the only item in _Input Selection_: e.g. _C:\Temp\UpscaleResume\MissingOnes_
 11. Change the output to another new folder, you create in the working folder: e.g. _C:\Temp\UpscaleResume\Resumed_
-11. Set the same driver and resolution as before, so that the new output frames match the already processed ones, of course
-12. Start Video2X GUI process, and wait for to complete
-12a. If Video2X would be stopped again perform step 13. below, remove the folder created in step 7. and perform steps 7. though 12. again - as to resume further
-13. Copy the files from the new output, e.g. _C:\Temp\UpscaleResume\Resumed_,  in the already upscaled images, e.g. _C:\Temp\UpscaleResume\Upscaled_, so that both sets are merged
-14. The final step will be to use a tool like _ffmpeg_ encode video frames in to a video file with the original audio
+12. {original_file_name}{extension}
+13. Set the same driver and resolution as before, so that the new output frames match the already processed ones, of course
+14. Start Video2X GUI process, and wait for to complete
+14a. If Video2X would be stopped again perform step 13. below, remove the folder created in step 7. and perform steps 7. though 14. again - as to resume further
+14. Copy the files from the new output, e.g. _C:\Temp\UpscaleResume\Resumed_,  in the already upscaled images, e.g. _C:\Temp\UpscaleResume\Upscaled_, so that both sets are merged
+15. The final step will be to use a tool like _ffmpeg_ encode video frames in to a video file with the original audio.
+
+e.g. `ffmpeg.exe -framerate 30 -pattern_type sequence -start_number 1 -i "C:\Temp\UpscaleResume\Upscaled\extracted_%d.png" -ss 0 -i "orginal_with_audio.mkv" -c:v copy -map 0:v:0 -map 1:a:0 -c:a copy -shortest "C:\Temp\UpscaleResume\upscaled_with_audio.mkv"`
